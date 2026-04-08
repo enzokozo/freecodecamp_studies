@@ -42,36 +42,21 @@ In professional environments, we separate these into different layers to maintai
 </script>
 ```
 
-## 📦 Data Types and Variables
+## 📦 Data Types
 ---
-
-> **Core Concept:** A **Data Type** is the kind of value stored (like a number or text). A **Variable** is a named container that stores a value, allowing you to reference and manipulate it throughout your code, similar to variables in mathematics (e.g., $x = 2$).
-
-### 🔢 Basic Data Types
-JavaScript uses several data types to help the program understand the nature of the data it is processing.
+> **Core Concept:** A Data Type defines the kind of value a program is processing.
 
 | Data Type | Description | Example |
 | :--- | :--- | :--- |
-| **Number** | Represents integers and floating-point numbers (decimals). | `7`, `3.14`, `-67` |
-| **String** | A sequence of characters/text enclosed in single or double quotes. | `"I love to code!"` |
-| **Boolean** | Represents one of two logical values: `true` or `false`. | `true` |
-| **Undefined** | A variable that has been declared but hasn't been given a value yet. | `undefined` |
-| **Null** | Intentionally set to represent "nothing" or no value. | `null` |
+| **Number** | Integers and floating-points. | `7`, `3.14` |
+| **String** | Text sequence in quotes. | `"Hello"` |
+| **Boolean** | Logical `true` or `false`. | `true` |
+| **Undefined** | Declared but unassigned. | `undefined` |
+| **Null** | Intentional "nothingness". | `null` |
+| **Object** | Key-value collections. | `{ id: 1 }` |
+| **BigInt/Symbol** | Large numbers / Unique IDs. | `10n`, `Symbol()` |
 
-### 🏗️ Complex & Special Data Types
-* **Object:** A collection of key-value pairs used to group related information.
-    ```javascript
-    { name: "Alice", age: 30 }
-    ```
-* **Symbol:** A unique value that cannot be changed, often used as identifiers.
-* **BigInt:** Used for very large numbers that exceed the standard `Number` limit (created by adding `n` to the end).
-    ```javascript
-    12345678901234567890n
-    ```
-
-### 🛠️ Syntax & Output
-* **Comments (`//`):** Notes for programmers that are ignored by the computer during execution.
-* **`console.log()`:** A function used to output information to the browser's console for debugging.
+---
 
 ```javascript
 // Examples of outputting different data types
@@ -80,41 +65,24 @@ console.log("Hello!");           // String
 console.log(true);               // Boolean
 console.log(Symbol('id'));       // Symbol
 ```
+> **Developer Tools:** Use `//` for comments (ignored by the engine) and `console.log()` to output data to the browser console for debugging.
 
-## 🛠️ Variables and Naming Conventions
+## 🛠️ Variable Mechanics & Naming
 ---
+> **Core Concept:** Variables are labeled containers used to store and manipulate the data types listed above.
 
-> **Core Concept:** Variables are containers for storing data values. Think of them as labeled boxes that hold information (like numbers or text) so you can refer to them or modify them later in your program.
-
-### ⚙️ Declaration and Initialization
-In JavaScript, you use the `let` keyword to declare a variable. This tells the program to set aside a space in memory for your data.
-
-* **Declaration:** Creating the variable name (e.g., `let age;`). At this stage, the variable exists but has no value, so it returns `undefined`.
-* **The Assignment Operator (`=`):** Used to store a value in the variable. It does **not** check for equality; it simply moves the value on the right into the box on the left.
-* **Initialization:** The first time you assign a value to a variable.
-
-
+### ⚙️ Lifecycle: Declaration, Initialization, and Reassignment
+* **Declaration:** Reserving the name (e.g., `let age;`).
+* **Initialization:** The first assignment of a value.
+* **Reassignment:** Updating the value of an existing variable (only possible with `let`).
 
 ```javascript
-let age;             // Declaration (currently undefined)
-console.log(age);    // Output: undefined
-
-age = 25;            // Initialization (Assignment)
-console.log(age);    // Output: 25
+let score;         // Declaration (undefined)
+score = 10;        // Initialization
+score = 20;        // Reassignment
 ```
 
-### 🔄 Reassignment
-One of the primary features of `let` is the ability to reassign values. This allows you to update information (like a player's score) as the program runs. You only use the `let` keyword during the initial declaration.
-
-```javascript
-let score = 10;
-console.log(score); // Output: 10
-
-score = 30;         // Reassignment (no 'let' needed)
-console.log(score); // Output: 30
-```
-
-### 📏 Variable Naming Rules & Best Practices
+### 📏 Naming Rules (Best Practices)
 To ensure your code remains manageable and readable, JavaScript has specific naming requirements and conventions:
 | Rule | Description | Examples |
 | :--- | :--- | :--- |
@@ -124,3 +92,52 @@ To ensure your code remains manageable and readable, JavaScript has specific nam
 | **camelCase** | Start with lowercase; capitalize every word thereafter. | `userTotalScore`, `isLoggedIn` |
 | **Reserved Words** | You cannot use JS keywords as variable names. | `let`, `const`, `function`, `return` |
 | **Special Chars** | Avoid symbols like `!` or `@`. Stick to letters, numbers, `_`, and `$`. | `user_name` (Valid) |
+
+## ⚖️ `let` vs. `const`
+---
+
+> **Core Concept:** Modern JavaScript provides two main ways to declare variables: `let` and `const`. The fundamental difference lies in **mutability**: `let` allows you to change the stored value later, while `const` creates a permanent link to a value that cannot be altered.
+
+### 📊 Comparison at a Glance
+
+| Feature | `let` | `const` |
+| :--- | :--- | :--- |
+| **Reassignment** | Allowed (Flexible container). | Forbidden (Constant value). |
+| **Initialization** | Optional (Defaults to `undefined`). | **Mandatory** at declaration. |
+| **Use Case** | Values that change (e.g., scores, counters). | Constant values (e.g., config, settings). |
+| **Reliability** | Higher risk of accidental changes. | Safer; prevents accidental overrides. |
+
+
+
+### 💻 Code Implementation
+
+#### 1. Using `let` for Flexible Data
+```javascript
+let score = 10;
+console.log(score); // Output: 10
+
+score = 20;         // Reassignment is perfectly valid
+console.log(score); // Output: 20
+
+let age;            // Valid declaration without value
+console.log(age);   // Output: undefined
+```
+
+#### 2. Using `const` for Immutable Data
+```javascript
+const maxScore = 100;
+console.log(maxScore); // Output: 100
+
+// maxScore = 200;     // ERROR: Assignment to constant variable.
+
+// const minScore;     // ERROR: Missing initializer in const declaration
+```
+
+### Notes:
+- **Initialization Requirement**: A `const` variable is a "promise" that the value will stay the same. Therefore, JavaScript requires you to provide that value immediately upon declaration.
+
+- **Error Handling**: Attempting to reassign a `const` or declare it without a value will throw a syntax/runtime error in the console, stopping your program.
+
+- **Legacy Code (`var`)**: Although you might see `var` in older code, it is no longer recommended. It behaves similarly to `let` regarding reassignment but has a wider scope, which often leads to bugs and unpredictable behavior in complex programs.
+
+- **Best Practice**: Default to using `const` for all variables. Only switch to `let` if you explicitly know the value needs to be updated later.
