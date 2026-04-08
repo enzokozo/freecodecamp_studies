@@ -40,6 +40,7 @@ In professional environments, we separate these into different layers to maintai
       console.log('User interaction detected!');
   });
 </script>
+```
 
 ## 📦 Data Types and Variables
 ---
