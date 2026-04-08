@@ -79,3 +79,48 @@ console.log(3.14);               // Number (Floating point)
 console.log("Hello!");           // String
 console.log(true);               // Boolean
 console.log(Symbol('id'));       // Symbol
+```
+
+## 🛠️ Variables and Naming Conventions
+---
+
+> **Core Concept:** Variables are containers for storing data values. Think of them as labeled boxes that hold information (like numbers or text) so you can refer to them or modify them later in your program.
+
+### ⚙️ Declaration and Initialization
+In JavaScript, you use the `let` keyword to declare a variable. This tells the program to set aside a space in memory for your data.
+
+* **Declaration:** Creating the variable name (e.g., `let age;`). At this stage, the variable exists but has no value, so it returns `undefined`.
+* **The Assignment Operator (`=`):** Used to store a value in the variable. It does **not** check for equality; it simply moves the value on the right into the box on the left.
+* **Initialization:** The first time you assign a value to a variable.
+
+
+
+```javascript
+let age;             // Declaration (currently undefined)
+console.log(age);    // Output: undefined
+
+age = 25;            // Initialization (Assignment)
+console.log(age);    // Output: 25
+```
+
+### 🔄 Reassignment
+One of the primary features of `let` is the ability to reassign values. This allows you to update information (like a player's score) as the program runs. You only use the `let` keyword during the initial declaration.
+
+```javascript
+let score = 10;
+console.log(score); // Output: 10
+
+score = 30;         // Reassignment (no 'let' needed)
+console.log(score); // Output: 30
+```
+
+### 📏 Variable Naming Rules & Best Practices
+To ensure your code remains manageable and readable, JavaScript has specific naming requirements and conventions:
+| Rule | Description | Examples |
+| :--- | :--- | :--- |
+| **Descriptive** | Names should reflect the data they hold. | `points` (Good) vs `x` (Bad) |
+| **Start Characters** | Must start with a **letter**, **underscore (`_`)**, or **dollar sign (`$`)**. | `let $price;` (Valid) \| `let 1st;` (Invalid) |
+| **Case Sensitivity** | `age` and `Age` are unique, separate variables. | `let age = 5; let Age = 10;` |
+| **camelCase** | Start with lowercase; capitalize every word thereafter. | `userTotalScore`, `isLoggedIn` |
+| **Reserved Words** | You cannot use JS keywords as variable names. | `let`, `const`, `function`, `return` |
+| **Special Chars** | Avoid symbols like `!` or `@`. Stick to letters, numbers, `_`, and `$`. | `user_name` (Valid) |
