@@ -1,27 +1,37 @@
 def caesar(text, shift, encrypt=True):
+    """
+    This function takes a string and an integer shift value, and returns the string encrypted using the Caesar cipher.
+    """
 
+    # Input validation
     if not isinstance(shift, int):
         return 'Shift must be an integer value.'
 
-    if shift < 1 or shift > 25:
+    if not (1 <= shift <= 25):
         return 'Shift must be an integer between 1 and 25.'
 
+    # Alphabet definition
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
-    if not encrypt:
-        shift = - shift
+    # Shift logic
+    n = shift if encrypt else -shift
     
-    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
-    translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
-    encrypted_text = text.translate(translation_table)
-    return encrypted_text
+    # Create shifted alphabet
+    shifted_alphabet = alphabet[n % 26:] + alphabet[:n % 26]
 
-def encrypt(text, shift):
-    return caesar(text, shift)
-    
-def decrypt(text, shift):
-    return caesar(text, shift, encrypt=False)
+    # Create translation table
+    source = alphabet + alphabet.upper()
+    target = shifted_alphabet + shifted_alphabet.upper()
 
+    translation_table = str.maketrans(source, target)
+
+    return text.translate(translation_table)
+
+# Functions for encryption and decryption
+def encrypt(text, shift): return caesar(text, shift) 
+def decrypt(text, shift): return caesar(text, shift, encrypt=False)
+
+# Test
 encrypted_text = 'Pbhentr vf sbhaq va hayvxryl cynprf.'
 decrypted_text = decrypt(encrypted_text, 13)
 print(decrypted_text)
