@@ -86,3 +86,126 @@ Para garantir que o navegador exiba todos os textos (incluindo o "ç" e acentos 
 ---
 > **💡 Dicas:** 
 > Declare a tag `<meta charset="utf-8">` como o **primeiro** elemento dentro do seu `<head>`. Se o navegador começar a ler o documento, encontrar um texto com acento e só descobrir depois que a codificação era UTF-8, ele pode renderizar os caracteres incorretamente. Colocar essa tag no topo evita problemas de exibição logo de cara.
+
+## 5. Elementos `<div>` e Agrupamento de Conteúdo
+
+A tag `<div>` (abreviação de *division* ou divisão) é um dos elementos mais utilizados no HTML. Ela funciona como um **contêiner genérico** para agrupar outros elementos.
+
+* **Sem significado semântico:** Diferente de tags como `<h1>` (que indica um título importante) ou `<p>` (que indica um parágrafo), a `<div>` não diz nada ao navegador ou aos leitores de tela sobre o tipo de conteúdo que ela guarda. Ela não tem valor visual pré-definido (é "invisível" até você estilizá-la).
+* **Propósito principal:** O verdadeiro poder da `<div>` aparece quando precisamos agrupar elementos relacionados para estilizá-los em conjunto usando CSS (geralmente aplicando atributos como `class` ou `id`) ou para manipulá-los com JavaScript.
+* **Nível de Bloco (*Block-level*):** Por padrão, uma `<div>` ocupa 100% da largura disponível, forçando o elemento seguinte a ir para a próxima linha (como se fosse um bloco retangular invisível na página).
+
+### Como usar a `<div>`
+
+Pense nela como uma "caixa" onde você organiza outros itens. No exemplo abaixo, agrupamos uma imagem, um título e um parágrafo dentro de uma mesma "caixa" que representa o perfil de um usuário:
+
+```html
+<div class="perfil-usuario">
+  <img src="foto.jpg" alt="Foto de perfil">
+  <h2>Maria Souza</h2>
+  <p>Desenvolvedora Front-end</p>
+</div>
+```
+
+---
+> **💡 Dicas:** 
+> Cuidado com a doença crônica do desenvolvedor iniciante: a "Divite" (*Divitis*), que é o vício de embrulhar tudo em `<div>`! Embora as divs sejam indispensáveis, o HTML moderno possui **tags semânticas** (como `<header>`, `<footer>`, `<main>`, `<section>` e `<article>`). Sempre que o seu bloco de conteúdo tiver uma função clara (ex: o rodapé da página ou um artigo de blog), prefira a tag semântica no lugar de uma `<div>` genérica. Isso melhora o SEO (ranqueamento no Google) e a acessibilidade para pessoas que usam leitores de tela.
+
+## 6. Identificadores: Atributos `id` e `class`
+
+Os atributos `id` e `class` são "atributos globais" (podem ser usados em quase qualquer tag) fundamentais no HTML. Eles servem como "etiquetas" que damos aos nossos elementos para que o CSS (estilos) e o JavaScript (interações) saibam exatamente com qual tag estão lidando.
+
+Embora pareçam ter a mesma função, a diferença entre eles é de extrema importância:
+
+*   **O atributo `id` (Identidade Única):** Funciona como o CPF do elemento. O valor de um `id` deve ser **estritamente único** dentro de um mesmo documento HTML. Você nunca deve ter dois elementos com o mesmo `id` na mesma página.
+    *   *Uso comum:* Identificar seções únicas da página (ex: o cabeçalho principal), servir como âncora para links internos (rolar a página até aquele ponto) ou como um alvo rápido para o JavaScript.
+
+*   **O atributo `class` (Classe ou Grupo):** Funciona como um uniforme de time. Você pode dar a **mesma** `class` para quantos elementos quiser na sua página.
+    *   *Uso comum:* Agrupar elementos que vão compartilhar o mesmo visual (ex: vários botões que precisam ter a mesma cor, fonte e tamanho).
+
+### Como aplicar no HTML
+
+No exemplo abaixo, usamos um `id` para a barra de navegação (já que só existe uma principal) e uma `class` para os botões (já que são vários e compartilham o mesmo padrão visual):
+
+```html
+<div id="navegacao-principal">
+  <button class="botao-padrao">Início</button>
+  <button class="botao-padrao">Sobre</button>
+  <button class="botao-padrao">Contato</button>
+</div>
+```
+
+---
+> **💡 Dicas:** 
+> 1. **Múltiplas classes:** Um único elemento pode ter várias classes ao mesmo tempo. Basta separá-las por espaço na declaração (ex: `<div class="caixa destaque fundo-escuro">`).
+> 2. **Regra de Ouro do Mercado:** Na hora de aplicar regras visuais no CSS, prefira **sempre** usar o atributo `class`. Estilizar elementos pelo `id` deixa o seu CSS muito "engessado" (vamos aprender sobre *especificidade* do CSS no futuro) e dificulta a reutilização do código. Guarde os `id`s para interações com JavaScript, para formulários (ligar um `<label>` a um `<input>`) ou para links internos.
+
+## 7. Entidades HTML (HTML Entities)
+
+Em HTML, alguns caracteres são "reservados". Por exemplo, os sinais de menor que (`<`) e maior que (`>`) são usados para criar as tags. Se você tentar simplesmente digitar "2 < 5" ou quiser exibir o texto "&lt;h1&gt;" na tela, o navegador vai se confundir, achando que você está tentando abrir uma nova tag, e o layout da página pode quebrar. 
+
+Para resolver isso, usamos as **Entidades HTML** (*HTML Entities*).
+
+* **O que são:** São códigos de texto curtos usados para exibir caracteres reservados pelo HTML, símbolos invisíveis, ou ícones que não estão facilmente disponíveis no teclado (como ©, ™, ou setas).
+* **Sintaxe padrão:** Toda entidade começa com um "e comercial" (`&`), seguido pelo nome da entidade (ou um número de identificação), e termina obrigatoriamente com um ponto e vírgula (`;`).
+
+### Entidades mais comuns no dia a dia:
+
+*   `&lt;` (*less than*): Renderiza o sinal de menor `<`
+*   `&gt;` (*greater than*): Renderiza o sinal de maior `>`
+*   `&amp;` (*ampersand*): Renderiza o "e comercial" `&`
+*   `&copy;`: Renderiza o símbolo de copyright `©`
+*   `&nbsp;` (*non-breaking space*): Renderiza um espaço em branco "inquebrável".
+
+### Como aplicar no HTML
+
+No exemplo abaixo, usamos entidades para mostrar a sintaxe de uma tag sem que o navegador tente executá-la, e depois usamos para exibir um símbolo de direitos autorais no rodapé:
+
+```html
+<p>Para criar um título principal no HTML, nós usamos a tag &lt;h1&gt;.</p>
+
+<footer>
+  <p>FreeCodeCamp &copy; 2026</p>
+</footer>
+```
+
+---
+> **💡 Dicas:** 
+> A entidade `&nbsp;` (*Non-Breaking Space*) é uma carta na manga excelente. Ela cria um espaço entre duas palavras, mas "amarra" as duas juntas. Isso impede que o navegador separe essas palavras em linhas diferentes quando o espaço da tela fica apertado (em celulares, por exemplo). É uma excelente prática de tipografia usar isso entre um valor e sua unidade de medida, como em `10&nbsp;kg` ou `R$&nbsp;50,00`, garantindo que o número e o símbolo fiquem sempre na mesma linha.
+
+## 8. O Elemento `<script>` e a Inclusão de JavaScript
+
+Se o HTML é o esqueleto da sua página e o CSS (trazido pela tag `<link>`) é a aparência, o JavaScript é o "músculo" ou o "cérebro" que permite a interatividade. Para conectar códigos de programação ao seu HTML, usamos o elemento `<script>`.
+
+* **Objetivo:** Inserir ou referenciar códigos executáveis, quase sempre JavaScript, no documento HTML.
+* **Não é uma tag vazia:** Ao contrário da tag `<link>` ou `<img>`, o elemento `<script>` **sempre** precisa de uma tag de fechamento `</script>`, mesmo quando você está apenas conectando um arquivo externo.
+
+### Como usar o `<script>`
+
+Existem duas abordagens para usar essa tag, de forma bem similar ao que fazemos com o CSS:
+
+**1. Código Interno (Inline):**
+Você pode escrever o código de programação diretamente entre as tags de abertura e fechamento. Isso é útil apenas para scripts minúsculos ou testes rápidos.
+
+```html
+<script>
+  console.log("Olá! Este texto vai aparecer no console do navegador.");
+</script>
+```
+
+**2. Código Externo (A Melhor Prática):**
+Em projetos reais, separamos as linguagens em arquivos diferentes. Para conectar um arquivo JavaScript externo, usamos o atributo `src` (*source*, ou fonte) apontando para o arquivo `.js`.
+
+```html
+<!-- Conectando um arquivo externo chamado "app.js" -->
+<script src="app.js"></script>
+```
+
+---
+> **💡 Dicas:** 
+> O local onde você coloca o `<script>` no seu documento impacta diretamente na performance (tempo de carregamento) do seu site. O comportamento padrão do navegador é pausar a leitura do HTML, baixar o script, executá-lo e só então voltar a ler o HTML. 
+>
+> Se o seu JavaScript for pesado e estiver no topo (`<head>`), a tela do usuário ficará em branco travada até o download terminar. 
+>
+> **A solução moderna:** Coloque o `<script>` no `<head>` e adicione o atributo `defer`.
+> Exemplo: `<script src="app.js" defer></script>`. O `defer` avisa ao navegador: *"Pode ir baixando o script nos bastidores, mas só o execute quando a página inteira estiver desenhada na tela."* Isso garante um carregamento muito mais rápido para o usuário.
