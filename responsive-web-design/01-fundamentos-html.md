@@ -209,3 +209,104 @@ Em projetos reais, separamos as linguagens em arquivos diferentes. Para conectar
 >
 > **A solução moderna:** Coloque o `<script>` no `<head>` e adicione o atributo `defer`.
 > Exemplo: `<script src="app.js" defer></script>`. O `defer` avisa ao navegador: *"Pode ir baixando o script nos bastidores, mas só o execute quando a página inteira estiver desenhada na tela."* Isso garante um carregamento muito mais rápido para o usuário.
+
+## 9. A Tag Meta Description e seu Papel no SEO
+
+A tag `<meta>` possui várias funções de configuração dentro do `<head>` do seu documento. Quando a utilizamos com o atributo `name="description"`, ela assume um papel vital para o **SEO** (*Search Engine Optimization* ou Otimização para Mecanismos de Busca).
+
+* **O que é:** É um breve resumo do conteúdo da sua página web. 
+* **Para que serve:** Os mecanismos de busca (como o Google) geralmente exibem esse texto na página de resultados (SERP) logo abaixo do título azul clicável e da URL do site.
+* **Como afeta o SEO:** O Google já declarou que a *meta description* não é um fator direto para subir posições no ranking. No entanto, ela é a principal responsável por gerar interesse e convencer o usuário a clicar no seu link em vez de clicar no link do concorrente.
+
+### Como aplicar no HTML
+
+A declaração exige dois atributos trabalhando em conjunto: o `name="description"` (que avisa à máquina qual é o propósito desta tag específica) e o `content` (que guarda o texto do seu resumo).
+
+```html
+<head>
+  <meta charset="utf-8">
+  <title>Aprenda a Programar</title>
+  <!-- Exemplo de Meta Description -->
+  <meta name="description" content="Aprenda desenvolvimento web do zero com tutoriais práticos de HTML, CSS e JavaScript. Comece sua carreira na tecnologia hoje!">
+</head>
+```
+
+---
+> **💡 Dicas:** 
+> O tamanho do texto que você escreve no atributo `content` importa muito. Se for muito longo, o Google simplesmente vai cortar a sua frase e colocar reticências (`...`) no final, o que parece pouco profissional. A recomendação padrão do mercado é manter a sua *meta description* entre **150 e 160 caracteres**. Pense nesse texto como o "pitch de vendas" da sua página: seja claro, honesto sobre o conteúdo e escreva um texto convidativo.
+
+## 10. Tags Open Graph (OG) e Compartilhamento em Redes Sociais
+
+Você já reparou que, quando você envia um link no WhatsApp, LinkedIn, Discord ou Twitter, o aplicativo automaticamente gera um "cartão" bonito (chamado de *Rich Card*) com uma imagem de capa, um título chamativo e um resumo? Quem controla exatamente o que aparece nesse cartão são as **Tags Open Graph**.
+
+* **O que são:** É um protocolo criado originalmente pelo Facebook, mas que se tornou o padrão da indústria, usado para controlar como uma página da web é apresentada quando compartilhada em redes sociais.
+* **Como funciona:** Elas são tags `<meta>` adicionadas ao `<head>` do seu documento. Em vez do atributo `name` tradicional (como vimos na *meta description*), o padrão Open Graph utiliza o atributo `property` com valores que sempre começam com o prefixo `og:`.
+
+### Principais Tags Open Graph
+
+* `og:title`: O título da sua página (como você quer que apareça na rede social).
+* `og:description`: Um breve resumo (geralmente parecido com a sua *meta description*).
+* `og:image`: O link direto para a imagem de capa que vai aparecer no cartão.
+* `og:url`: O endereço oficial da página.
+* `og:type`: O tipo de conteúdo (geralmente `website` ou `article`).
+
+### Como aplicar no HTML
+
+```html
+<head>
+  <!-- Outras configurações do head... -->
+  
+  <!-- Configurações Open Graph -->
+  <meta property="og:title" content="Aprenda a Programar do Zero">
+  <meta property="og:description" content="Curso prático de HTML e CSS.">
+  <meta property="og:image" content="https://seusite.com/imagens/capa.jpg">
+  <meta property="og:url" content="https://seusite.com/curso">
+  <meta property="og:type" content="website">
+</head>
+```
+
+---
+> **💡 Dicas:** 
+> 1. **A imagem é crucial:** A tag `og:image` é o que mais atrai cliques. O padrão da indústria para garantir que a imagem não fique cortada nem esticada nas redes sociais é usar o tamanho de **1200 x 630 pixels**. E lembre-se: o caminho na tag `content` da imagem deve ser o link absoluto e completo (começando com `https://`), não o caminho local do seu computador.
+> 2. **X (antigo Twitter):** O Twitter tem as suas próprias meta tags (ex: `<meta name="twitter:card" content="summary_large_image">`), mas como medida de segurança, se ele não encontrar as tags do Twitter, ele usa as tags Open Graph como plano B. Portanto, garantir o Open Graph resolve 90% do seu problema de compartilhamento.
+
+## 11. Elementos `<audio>` e `<video>`
+
+Antigamente, para tocar uma música ou exibir um vídeo em um site, os desenvolvedores dependiam de plugins externos pesados e cheios de falhas de segurança, como o Adobe Flash Player. O HTML5 resolveu isso introduzindo tags nativas e semânticas para lidar com mídia: `<audio>` e `<video>`.
+
+* **Como funcionam:** Ambas as tags possuem uma estrutura quase idêntica. Elas atuam como um contêiner (*wrapper*) para os arquivos de mídia.
+* **A tag `<source>`:** Embora você possa usar o atributo `src` direto na tag de áudio/vídeo, a melhor prática é usar a tag `<source>` dentro delas. Ela é *self-closing* (vazia) e permite que você ofereça o mesmo arquivo em diferentes formatos. O navegador vai ler a lista de cima para baixo e tocar o primeiro formato que ele for capaz de rodar.
+* **Texto de *Fallback* (Reserva):** O texto que você coloca entre a tag de abertura e fechamento só será exibido na tela se o navegador do usuário for muito antigo e não suportar aquele elemento.
+
+### Principais Atributos:
+
+Para essas tags serem úteis, elas dependem de alguns atributos específicos (a maioria deles não precisa do sinal de igual, basta declarar o nome):
+
+* `controls`: O mais importante. Mostra os controles nativos do navegador (botão de play/pause, barra de progresso, volume e tela cheia).
+* `autoplay`: Faz a mídia começar a tocar automaticamente assim que a página carrega.
+* `loop`: Faz o áudio ou vídeo recomeçar sozinho quando chega ao fim.
+* `muted`: Inicia a mídia sem som.
+
+### Como aplicar no HTML
+
+```html
+<!-- Exemplo de Vídeo -->
+<video controls width="600">
+  <!-- O navegador tentará rodar o mp4; se não conseguir, tenta o webm -->
+  <source src="apresentacao.mp4" type="video/mp4">
+  <source src="apresentacao.webm" type="video/webm">
+  Desculpe, o seu navegador não suporta a exibição de vídeos.
+</video>
+
+<!-- Exemplo de Áudio -->
+<audio controls>
+  <source src="podcast.mp3" type="audio/mpeg">
+  Desculpe, o seu navegador não suporta a tag de áudio.
+</audio>
+```
+
+---
+> **💡 Dicas:** 
+> O maior erro de UX (Experiência do Usuário) que um desenvolvedor pode cometer é usar o atributo `autoplay` tocando som sem a permissão do usuário. Ninguém gosta de entrar em um site e levar um susto com um vídeo alto. 
+> 
+> Inclusive, os navegadores modernos (como Chrome e Safari) hoje em dia **bloqueiam** automaticamente qualquer `autoplay` que tenha som. Se você realmente precisa que um vídeo inicie sozinho no fundo da tela, você é obrigado a usar `autoplay` e `muted` juntos (ex: `<video autoplay muted loop>`).
